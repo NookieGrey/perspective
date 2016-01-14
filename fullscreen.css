@@ -1,0 +1,28 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+body canvas {
+    display: block;
+    margin: auto auto;
+    background: rgb(0,128,128);
+}
+
+#settings {
+    position: absolute;
+    right:0;
+    top: 0;
+    z-index: 1;
+    color: white;
+}

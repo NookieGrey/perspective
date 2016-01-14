@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perspective</title>
+    <link rel="stylesheet" href="fullscreen.css">
+    <script src="Settings.js"></script>
+    <script src="Perspective.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+<form id="settings">
+    <div>
+        <label for="pd">
+            vision angle
+            <input type="number" id="pd" name="pd" step="10" min="10">
+        </label>
+    </div>
+    <div>
+        <label for="frame-count">
+            frames count
+            <input type="number" id="frame-count" name="frame-count" step="10" min="10">
+        </label>
+    </div>
+    <div>
+        <label for="distance-x">
+            length
+            <input type="number" id="distance-x" name="distance-x" step="1" min="1">
+        </label>
+    </div>
+    <div>
+        <label for="distance-y">
+            width
+            <input type="number" id="distance-y" name="distance-y" step="1" min="0">
+        </label>
+    </div>
+    <div>
+        <label for="scale">
+            scale
+            <input type="number" id="scale" name="scale" step="1" min="1">
+        </label>
+    </div>
+    <div>
+        <label for="horizon-x">
+            horizon x
+            <input type="number" id="horizon-x" name="horizon-x" step="10">
+        </label>
+    </div>
+    <div>
+        <label for="horizon-y">
+            horizon y
+            <input type="number" id="horizon-y" name="horizon-y" step="10">
+        </label>
+    </div>
+    <!--<div>-->
+        <!--<label for="global-z">-->
+            <!--global Z-->
+            <!--<input type="number" id="global-z" name="global-z" step="10">-->
+        <!--</label>-->
+    <!--</div>-->
+
+    *canvas clickable
+</form>
+</body>
+</html>

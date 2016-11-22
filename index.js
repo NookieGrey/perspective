@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     var $scale = form['scale'];
-    $scale.value = Settings.mostDistanceY;
+    $scale.value = Settings.scale;
     $scale.addEventListener('change', function () {
         var value = +this.value;
         if (value >= 0) {
@@ -94,11 +94,11 @@ document.addEventListener("DOMContentLoaded", function () {
         Settings.horizonY = +this.value;
     });
 
-    var $globalZ = form['global-z'];
-    $globalZ.value = Settings.globalZ;
-    $globalZ.addEventListener('change', function () {
-        Settings.globalZ = +this.value;
-    });
+    // var $globalZ = form['global-z'];
+    // $globalZ.value = Settings.globalZ;
+    // $globalZ.addEventListener('change', function () {
+    //     Settings.globalZ = +this.value;
+    // });
 
 
 });
@@ -129,9 +129,9 @@ canvas.addEventListener('wheel', function (event) {
 function draw(time) {
     ctx.clear();
 
-    //var horizon = new Point(Settings.canvasWidth/2, Settings.canvasWidth*Settings.mostDistanceX, 0 - Settings.globalZ);
-    //Settings.horizonX = horizon.X;
-    //Settings.horizonY = horizon.Z;
+    // var horizon = new Point(Settings.canvasWidth/2, Settings.canvasWidth*Settings.mostDistanceX, 0 - Settings.globalZ);
+    // Settings.horizonX = horizon.X;
+    // Settings.horizonY = horizon.Z;
 
     var frame = (time) % Settings.frameCount;
     var maxDistance = Settings.canvasWidth * Settings.mostDistanceX;
@@ -218,7 +218,7 @@ requestAnimationFrame = requestAnimationFrame || mozRequestAnimationFrame || web
 
 //draw(0);
 //
-var stop;
+var stop = false;
 var time = 0;
 loop();
 function loop() {

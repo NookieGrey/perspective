@@ -16,8 +16,6 @@ CanvasRenderingContext2D.prototype.clear =
 Settings.canvasWidth = window.innerWidth;
 Settings.canvasHeight = window.innerHeight;
 Settings.step = Settings.canvasWidth / Settings.scale;
-Settings.globalZ = 0;
-
 
 var canvas = document.createElement('canvas');
 canvas.width = Settings.canvasWidth;
@@ -26,112 +24,101 @@ canvas.height = Settings.canvasHeight;
 var ctx = Settings.ctx = canvas.getContext("2d");
 var form;
 
-document.addEventListener("DOMContentLoaded", function () {
-    var body = document.body;
+(function addListeners() {
+    document.addEventListener("DOMContentLoaded", function () {
+        var body = document.body;
 
-    body.appendChild(canvas);
+        body.appendChild(canvas);
 
-    form = document.getElementById('settings');
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
+        form = document.getElementById('settings');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+        });
+
+        var $pd = form.pd;
+        $pd.value = Settings.pd;
+        $pd.addEventListener('change', function () {
+            var value = +this.value;
+            if (value > 0) {
+                Settings.pd = value;
+            }
+        });
+
+        var $frameCount = form['frame-count'];
+        $frameCount.value = Settings.frameCount;
+        $frameCount.addEventListener('change', function () {
+            var value = +this.value;
+            if (value > 0) {
+                Settings.frameCount = value;
+            }
+        });
+
+        var $distanceX = form['distance-x'];
+        $distanceX.value = Settings.mostDistanceX;
+        $distanceX.addEventListener('change', function () {
+            var value = +this.value;
+            if (value > 0) {
+                Settings.mostDistanceX = value;
+            }
+        });
+
+        var $distanceY = form['distance-y'];
+        $distanceY.value = Settings.mostDistanceY;
+        $distanceY.addEventListener('change', function () {
+            var value = +this.value;
+            if (value >= 0) {
+                Settings.mostDistanceY = value;
+            }
+        });
+
+        var $scale = form['scale'];
+        $scale.value = Settings.scale;
+        $scale.addEventListener('change', function () {
+            var value = +this.value;
+            if (value >= 0) {
+                Settings.scale = value;
+                Settings.step = Settings.canvasWidth / Settings.scale;
+            }
+        });
+
+        var $horizonX = form['horizon-x'];
+        $horizonX.value = Settings.horizonX;
+        $horizonX.addEventListener('change', function () {
+            Settings.horizonX = +this.value;
+        });
+
+        var $horizonY = form['horizon-y'];
+        $horizonY.value = Settings.horizonY;
+        $horizonY.addEventListener('change', function () {
+            Settings.horizonY = +this.value;
+        });
+
+        canvas.addEventListener('click', function (event) {
+            Settings.horizonY = event.layerY;
+            Settings.horizonX = event.layerX;
+
+            var $horizonX = form['horizon-x'];
+            $horizonX.value = Settings.horizonX;
+
+            var $horizonY = form['horizon-y'];
+            $horizonY.value = Settings.horizonY;
+        });
+
+        canvas.addEventListener('wheel', function (event) {
+            var delta = event.deltaY > 0 ? 10 : -10;
+            var cpd = Settings.pd + delta;
+            if (cpd > 0) {
+                Settings.pd = cpd;
+            }
+            var $pd = form.pd;
+            $pd.value = Settings.pd;
+        });
     });
+})()
 
-    var $pd = form.pd;
-    $pd.value = Settings.pd;
-    $pd.addEventListener('change', function () {
-        var value = +this.value;
-        if (value > 0) {
-            Settings.pd = value;
-        }
-    });
-
-    var $frameCount = form['frame-count'];
-    $frameCount.value = Settings.frameCount;
-    $frameCount.addEventListener('change', function () {
-        var value = +this.value;
-        if (value > 0) {
-            Settings.frameCount = value;
-        }
-    });
-
-    var $distanceX = form['distance-x'];
-    $distanceX.value = Settings.mostDistanceX;
-    $distanceX.addEventListener('change', function () {
-        var value = +this.value;
-        if (value > 0) {
-            Settings.mostDistanceX = value;
-        }
-    });
-
-    var $distanceY = form['distance-y'];
-    $distanceY.value = Settings.mostDistanceY;
-    $distanceY.addEventListener('change', function () {
-        var value = +this.value;
-        if (value >= 0) {
-            Settings.mostDistanceY = value;
-        }
-    });
-
-    var $scale = form['scale'];
-    $scale.value = Settings.scale;
-    $scale.addEventListener('change', function () {
-        var value = +this.value;
-        if (value >= 0) {
-            Settings.scale = value;
-            Settings.step = Settings.canvasWidth / Settings.scale;
-        }
-    });
-
-    var $horizonX = form['horizon-x'];
-    $horizonX.value = Settings.horizonX;
-    $horizonX.addEventListener('change', function () {
-        Settings.horizonX = +this.value;
-    });
-
-    var $horizonY = form['horizon-y'];
-    $horizonY.value = Settings.horizonY;
-    $horizonY.addEventListener('change', function () {
-        Settings.horizonY = +this.value;
-    });
-
-    // var $globalZ = form['global-z'];
-    // $globalZ.value = Settings.globalZ;
-    // $globalZ.addEventListener('change', function () {
-    //     Settings.globalZ = +this.value;
-    // });
-
-
-});
-
-canvas.addEventListener('click', function (event) {
-    Settings.horizonY = event.layerY;
-    Settings.horizonX = event.layerX;
-
-    var $horizonX = form['horizon-x'];
-    $horizonX.value = Settings.horizonX;
-
-    var $horizonY = form['horizon-y'];
-    $horizonY.value = Settings.horizonY;
-
-    console.log(Settings.horizonX, Settings.horizonY);
-});
-
-canvas.addEventListener('wheel', function (event) {
-    var delta = event.deltaY > 0 ? 10 : -10;
-    var cpd = Settings.pd + delta;
-    if (cpd > 0) {
-        Settings.pd = cpd;
-    }
-    var $pd = form.pd;
-    $pd.value = Settings.pd;
-});
 
 function draw(time) {
     ctx.clear();
-
-    // var horizon = new Point(Settings.canvasWidth/2, Settings.canvasWidth*Settings.mostDistanceX, 0 - Settings.globalZ);
-    // Settings.horizonX = horizon.X;
-    // Settings.horizonY = horizon.Z;
 
     var frame = (time) % Settings.frameCount;
     var maxDistance = Settings.canvasWidth * Settings.mostDistanceX;
@@ -141,7 +128,7 @@ function draw(time) {
     var rightEnd = Settings.canvasWidth + (Settings.mostDistanceY - 1) / 2 * Settings.canvasWidth;
 
     function getDistance(index) {
-        if (index == count) return maxDistance;
+        if (index === count) return maxDistance;
         var order = maxDistance * index / count;
 
         var step = (1 - frame / Settings.frameCount) * Settings.step;
@@ -154,8 +141,8 @@ function draw(time) {
         for (var i = 0; i <= count; i++) {
             var distance = getDistance(i);
 
-            var A = new Point(leftEnd, distance, 0 - Settings.globalZ);
-            var B = new Point(rightEnd, distance, 0 - Settings.globalZ);
+            var A = new Point(leftEnd, distance, 0);
+            var B = new Point(rightEnd, distance, 0);
             ctx.moveTo(A.X, A.Z);
             ctx.lineTo(B.X, B.Z);
         }
@@ -166,8 +153,8 @@ function draw(time) {
         ctx.beginPath();
         ctx.strokeStyle = 'white';
         for (var c = leftEnd; c <= rightEnd; c += Settings.step) {
-            var A = new Point(c, 0, 0 - Settings.globalZ);
-            var B = new Point(c, Settings.mostDistanceX*Settings.canvasWidth, 0 - Settings.globalZ);
+            var A = new Point(c, 0, 0);
+            var B = new Point(c, Settings.mostDistanceX*Settings.canvasWidth, 0);
             ctx.moveTo(A.X, A.Z);
             ctx.lineTo(B.X, B.Y);
         }
@@ -185,8 +172,8 @@ function draw(time) {
 
         ctx.beginPath();
 
-        var A = new Point(left - height * Math.cos(alpha), Settings.mostDistanceX*Settings.canvasWidth, 0 - Settings.globalZ);
-        var B = new Point(left + height * Math.cos(alpha), Settings.mostDistanceX*Settings.canvasWidth, 0 - Settings.globalZ);
+        var A = new Point(left - height * Math.cos(alpha), Settings.mostDistanceX*Settings.canvasWidth, 0);
+        var B = new Point(left + height * Math.cos(alpha), Settings.mostDistanceX*Settings.canvasWidth, 0);
         // rails
         ctx.moveTo(left - height * Math.cos(alpha), Settings.canvasHeight);
         ctx.lineTo(A.X, A.Y);
@@ -198,7 +185,7 @@ function draw(time) {
 
         ctx.beginPath();
         for (var y = 0; y <= count; y++) {
-            var O = new Point(left, getDistance(y), height - Settings.globalZ);
+            var O = new Point(left, getDistance(y), height);
 
             var X = O.X;
             var Y = O.Z;
@@ -225,17 +212,9 @@ function loop() {
     if (!stop) {
         time++;
         draw(time);
-
     }
 
     requestAnimationFrame(loop);
-}
-
-
-
-
-function deg(rad) {
-    return rad / Math.PI * 180;
 }
 
 //document.body.addEventListener('click', function () {

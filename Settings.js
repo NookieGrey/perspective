@@ -3,7 +3,7 @@ var Settings = {
     horizonX: 640,
     frameCount: 300,
     pd: 300,
-    mostDistanceX: 3,
-    mostDistanceY: 5,
+    mostDistanceX: 15,
+    mostDistanceY: 20,
     scale: 5
 };

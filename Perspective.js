@@ -1,79 +1,35 @@
-function Solid() {
+import {Constants} from './defaultSettings.js';
 
+Point.distanceY = function (distance) {
+  const OD_ = distance + Constants.pd;
+
+  return Constants.DD_ / OD_ * distance;
+};
+
+Point.distanceX = function (distance, distanceY) {
+  // Constants.DD_ / (Constants.DD_ - distanceY) = (distance - Constants.horizonX) / (result - Constants.horizonX)
+  // (result - Constants.horizonX) = (distance - Constants.horizonX) / Constants.DD_ * (Constants.DD_ - distanceY)
+  // result = Constants.horizonX + (distance - Constants.horizonX) / Constants.DD_ * (Constants.DD_ - distanceY)
+
+  return Constants.horizonX + (distance - Constants.horizonX) / Constants.DD_ * (Constants.DD_ - distanceY);
+};
+
+Point.distanceZ = function (H, distance, distanceX) {
+  // (distance - Constants.horizonX) / (distanceY - Constants.horizonX) = H / result;
+  return H / (distance - Constants.horizonX) * (distanceX - Constants.horizonX)
+};
+
+export function Point(x, y, z = 0) {
+  const Y = Point.distanceY(y);
+  const X = Point.distanceX(x, Y);
+
+  const Z = Point.distanceZ(z,x, X);
+
+  this.x = X;
+  this.y = Y;
+  this.z = z;
+
+  this.X = X;
+  this.Y = Constants.canvasHeight - Y;
+  this.Z = Constants.canvasHeight - Y - Z;
 }
-
-Solid.distanceY = function (distance) {
-    var X = distance + Settings.pd;
-    var x = distance;
-    var Y = Settings.canvasHeight - Settings.horizonY;
-    return Y * x / X;
-};
-
-Solid.distanceX = function (distance, distanceY) {
-    var y = distanceY;
-    var Y = Settings.canvasHeight - Settings.horizonY;
-    var X = distance - Settings.horizonX;
-    return y / Y * X;
-};
-
-Solid.distanceZ = function (H, distanceY) {
-    var Y = Settings.canvasHeight - Settings.horizonY;
-    var y = Y - distanceY;
-    return y / Y * H;
-};
-
-function Point(x, y, z, options) {
-    this._x = x || 0;
-    this._y = y || 0;
-    this._z = z || 0;
-    this.options = options || {};
-    this.options.color = this.options.color || 'gold';
-
-    var Y = Point.distanceY(y);
-    var X = Point.distanceX(x, Y);
-
-    var Z = Point.distanceZ(z, Y);
-
-    this.x = X;
-    this.y = Y;
-    this.z = Z;
-
-    this.X = x - X;
-    this.Y = Settings.canvasHeight - Y;
-    this.Z = Settings.canvasHeight - Y - Z;
-}
-
-for (var key in Solid) {
-    if (Solid.hasOwnProperty(key)) Point[key] = Solid[key]
-}
-
-Point.prototype.draw = function () {
-    ctx.fillStyle = 'gold';
-    ctx.beginPath();
-    ctx.arc(this.X, this.Z, 3, 0, Math.PI * 2, true);
-    ctx.fill();
-};
-
-Point.prototype.drawProjection = function () {
-    ctx.strokeStyle = this.options.color;
-    ctx.beginPath();
-    ctx.moveTo(this.X, this.Y);
-    ctx.lineTo(this.X, this.Z);
-    ctx.stroke();
-};
-
-function Segment(A, B, options) {
-    this._A = A;
-    this._B = B;
-
-    this.options = options || {};
-    this.options.color = this.options.color || 'gold';
-}
-
-Segment.prototype.draw = function () {
-    ctx.strokeStyle = this.options.color;
-    ctx.beginPath();
-    ctx.moveTo(this._A.x, this._B.z);
-    ctx.lineTo(this._B.x, this._B.z);
-    ctx.stroke();
-};

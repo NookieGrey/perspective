@@ -1,6 +1,6 @@
 {
   "name": "perspective",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "3D simulation on 2D canvas",
   "main": "index.html",
   "author": "Gaguliya Nugzar",

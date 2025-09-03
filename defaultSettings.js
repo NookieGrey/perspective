@@ -1,17 +1,21 @@
-export const Constants = {
+export const GlobalStorage = {
   "frameCount": 300,
+  // todo add comment what is pd
   "pd": 800,
   "mostDistanceX": 5,
-  "mostDistanceY": 2,
+  "mostDistanceY": 10,
   "scale": 5
 }
 
-Constants.canvasWidth = window.innerWidth;
-Constants.canvasHeight = window.innerHeight;
+GlobalStorage.canvasWidth = window.innerWidth;
+GlobalStorage.canvasHeight = window.innerHeight;
 
-Constants.horizonX = 800 || Constants.canvasWidth / 2;
-Constants.horizonY = 200 || Constants.canvasHeight / 2;
+GlobalStorage.horizonX = 462 ?? GlobalStorage.canvasWidth / 2;
+GlobalStorage.horizonY = 558 ?? GlobalStorage.canvasHeight / 2;
 
-Constants.step = Constants.canvasWidth / Constants.scale;
+GlobalStorage.step = GlobalStorage.canvasWidth / GlobalStorage.scale;
 
-Constants.DD_ = Constants.canvasHeight - Constants.horizonY;
+// todo add comment what is _DD
+GlobalStorage.DD_ = GlobalStorage.canvasHeight - GlobalStorage.horizonY;
+
+window.GlobalStorage = GlobalStorage;

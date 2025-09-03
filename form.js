@@ -1,6 +1,6 @@
-import {Constants} from "./defaultSettings.js";
+import {GlobalStorage} from "./defaultSettings.js";
 
-export function addListeners(canvas) {
+export function wireSettingsFormTo(canvas) {
   var form;
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -14,84 +14,75 @@ export function addListeners(canvas) {
     });
 
     var $pd = form.pd;
-    $pd.value = Constants.pd;
+    $pd.value = GlobalStorage.pd;
     $pd.addEventListener('change', function () {
       var value = +this.value;
       if (value > 0) {
-        Constants.pd = value;
+        GlobalStorage.pd = value;
       }
     });
 
     var $frameCount = form['frame-count'];
-    $frameCount.value = Constants.frameCount;
+    $frameCount.value = GlobalStorage.frameCount;
     $frameCount.addEventListener('change', function () {
       var value = +this.value;
       if (value > 0) {
-        Constants.frameCount = value;
+        GlobalStorage.frameCount = value;
       }
     });
 
     var $distanceX = form['distance-x'];
-    $distanceX.value = Constants.mostDistanceX;
+    $distanceX.value = GlobalStorage.mostDistanceX;
     $distanceX.addEventListener('change', function () {
       var value = +this.value;
       if (value > 0) {
-        Constants.mostDistanceX = value;
+        GlobalStorage.mostDistanceX = value;
       }
     });
 
     var $distanceY = form['distance-y'];
-    $distanceY.value = Constants.mostDistanceY;
+    $distanceY.value = GlobalStorage.mostDistanceY;
     $distanceY.addEventListener('change', function () {
       var value = +this.value;
       if (value >= 0) {
-        Constants.mostDistanceY = value;
+        GlobalStorage.mostDistanceY = value;
       }
     });
 
     var $scale = form['scale'];
-    $scale.value = Constants.scale;
+    $scale.value = GlobalStorage.scale;
     $scale.addEventListener('change', function () {
       var value = +this.value;
       if (value >= 0) {
-        Constants.scale = value;
-        Constants.step = Constants.canvasWidth / Constants.scale;
+        GlobalStorage.scale = value;
+        GlobalStorage.step = GlobalStorage.canvasWidth / GlobalStorage.scale;
       }
     });
 
     var $horizonX = form['horizon-x'];
-    $horizonX.value = Constants.horizonX;
+    $horizonX.value = GlobalStorage.horizonX;
     $horizonX.addEventListener('change', function () {
-      Constants.horizonX = +this.value;
+      GlobalStorage.horizonX = +this.value;
     });
 
     var $horizonY = form['horizon-y'];
-    $horizonY.value = Constants.horizonY;
+    $horizonY.value = GlobalStorage.horizonY;
     $horizonY.addEventListener('change', function () {
-      Constants.horizonY = +this.value;
+      GlobalStorage.horizonY = +this.value;
+      GlobalStorage.DD_ = GlobalStorage.canvasHeight - GlobalStorage.horizonY;
     });
 
     canvas.addEventListener('click', function (event) {
-      Constants.horizonY = event.layerY;
-      Constants.horizonX = event.layerX;
+      GlobalStorage.horizonY = event.layerY;
+      GlobalStorage.horizonX = event.layerX;
 
       var $horizonX = form['horizon-x'];
-      $horizonX.value = Constants.horizonX;
+      $horizonX.value = GlobalStorage.horizonX;
 
       var $horizonY = form['horizon-y'];
-      $horizonY.value = Constants.horizonY;
+      $horizonY.value = GlobalStorage.horizonY;
 
-      Constants.DD_ = Constants.canvasHeight - Constants.horizonY;
+      GlobalStorage.DD_ = GlobalStorage.canvasHeight - GlobalStorage.horizonY;
     });
-    //
-    // canvas.addEventListener('wheel', function (event) {
-    //   var delta = event.deltaY > 0 ? 10 : -10;
-    //   var cpd = Constants.pd + delta;
-    //   if (cpd > 0) {
-    //     Constants.pd = cpd;
-    //   }
-    //   var $pd = form.pd;
-    //   $pd.value = Constants.pd;
-    // });
   });
 }

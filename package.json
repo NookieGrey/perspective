@@ -1,8 +1,8 @@
 {
   "name": "perspective",
-  "version": "0.0.2",
-  "description": "3D simulation on 2D canvas",
+  "version": "0.0.3",
+  "description": "3D simulation on 2D canvas using perspective",
   "main": "index.html",
-  "author": "Gaguliya Nugzar",
+  "author": "Gagulia Nugzar",
   "repository": "https://github.com/NugzarGaguliya/perspective.git"
 }

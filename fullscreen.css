@@ -19,10 +19,19 @@ body canvas {
     background: rgb(0,128,128);
 }
 
-#settings {
+.left-block {
+    position: absolute;
+    left:0;
+    top: 0;
+    z-index: 1;
+    color: white;
+}
+
+.right-block {
     position: absolute;
     right:0;
     top: 0;
     z-index: 1;
     color: white;
+    text-align: right;
 }

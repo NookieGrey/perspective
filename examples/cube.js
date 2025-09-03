@@ -2,10 +2,12 @@ import {GlobalStorage} from "../defaultSettings.js";
 import {Point} from "../library/Point.js";
 
 export function drawCube(time, ctx) {
+  if (!GlobalStorage.examples.cube.showCube) return;
+
   const {x, y, z} = move(time, 200, 500, 300);
   // const x = 600, y = 500, z = 300;
 
-  const size = 200;
+  const size = GlobalStorage.examples.cube.size;
   // todo added 0.5, because need to fix 45 deg
   const angle = (time / GlobalStorage.frameCount * 60) % 360 + 0.5;
   // const angle = 45;

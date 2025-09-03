@@ -3,6 +3,7 @@ import {wireSettingsFormTo} from "./form.js";
 import {addPolyfillCanvasClear} from "./addPolyfillCanvasClear.js";
 import {drawFloor} from "./examples/floor.js";
 import {drawCube} from "./examples/cube.js";
+import {Point} from "./library/Point.js";
 
 addPolyfillCanvasClear();
 
@@ -13,6 +14,7 @@ canvas.height = GlobalStorage.canvasHeight;
 const ctx = canvas.getContext("2d");
 
 wireSettingsFormTo(canvas);
+window.Point = Point;
 
 let stop = false;
 let time = 0;
@@ -31,5 +33,14 @@ function draw(time, ctx) {
   ctx.clear();
 
   drawFloor(time, ctx);
+
   drawCube(time, ctx);
+
+  if (GlobalStorage.customDraw) {
+    try {
+      GlobalStorage.customDraw(time, ctx);
+    } catch (e) {
+      console.error("Error executing custom code:", e);
+    }
+  }
 }

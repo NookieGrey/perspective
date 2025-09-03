@@ -2,6 +2,8 @@ import {GlobalStorage} from "../defaultSettings.js";
 import {Point} from "../library/Point.js";
 
 export function drawFloor(time, ctx) {
+  if (!GlobalStorage.examples.floor.showFloor) return;
+
   const maxDistance = GlobalStorage.canvasWidth * GlobalStorage.mostDistanceX;
   const count = GlobalStorage.scale * GlobalStorage.mostDistanceX;
 
@@ -14,9 +16,11 @@ export function drawFloor(time, ctx) {
   function getDistance(index) {
     if (index === count) return maxDistance;
     const order = maxDistance * index / count;
-    /** accelerate by X */
-    // const framesCount = GlobalStorage.frameCount / 5;
-    const framesCount = GlobalStorage.frameCount;
+
+    if (GlobalStorage.examples.floor.speedX === 0) {
+      return order;
+    }
+    const framesCount = GlobalStorage.frameCount / GlobalStorage.examples.floor.speedX;
 
     const frame = time % framesCount;
     const step = (1 - frame / framesCount) * GlobalStorage.step;
@@ -26,9 +30,11 @@ export function drawFloor(time, ctx) {
   function getDistanceY(index) {
     if (index === countY) return maxDistanceY;
     const order = maxDistanceY * index / countY;
-    /** accelerate by Y */
-    // const framesCount = GlobalStorage.frameCount / 5;
-    const framesCount = GlobalStorage.frameCount;
+
+    if (GlobalStorage.examples.floor.speedY === 0) {
+      return order;
+    }
+    const framesCount = GlobalStorage.frameCount / GlobalStorage.examples.floor.speedY;
 
     const frame = time % framesCount;
     const step = (1 - frame / framesCount) * GlobalStorage.step;
@@ -36,12 +42,20 @@ export function drawFloor(time, ctx) {
   }
 
   /** The default Z is negative because our viewpoint is elevated, not at ground level. */
-  const Z = -300;
+  const Z = -GlobalStorage.examples.floor.height;
   // const Z = 0;
 
   (function drawHorizonLines() {
     ctx.beginPath();
     ctx.strokeStyle = 'white';
+
+    {
+      const A = new Point(leftEnd, 0, Z);
+      const B = new Point(rightEnd, 0, Z);
+      ctx.moveTo(A.X, A.Z);
+      ctx.lineTo(B.X, B.Z);
+    }
+
     for (let i = 0; i <= count; i++) {
       const distance = getDistance(i);
 

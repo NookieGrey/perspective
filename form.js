@@ -77,10 +77,7 @@ export function wireSettingsFormTo(canvas) {
         GlobalStorage.horizonY = event.layerY;
         GlobalStorage.horizonX = event.layerX;
 
-        var $horizonX = form['horizon-x'];
         $horizonX.value = GlobalStorage.horizonX;
-
-        var $horizonY = form['horizon-y'];
         $horizonY.value = GlobalStorage.horizonY;
 
         GlobalStorage.DD_ = GlobalStorage.canvasHeight - GlobalStorage.horizonY;
@@ -131,6 +128,9 @@ export function wireSettingsFormTo(canvas) {
     }
     {
       const $form = document.getElementById('custom-code');
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+      });
       const $customJsTextarea = $form['custom-js'];
 
       const defaultCode = `// Example using Point: Draw a circle moving in a 3D circle

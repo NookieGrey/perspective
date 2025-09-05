@@ -1,4 +1,4 @@
-import {makePoint} from "../library/point";
+import {makePoint} from "../library/point/makePoint.js";
 import {GlobalStorage} from "../defaultSettings.js";
 
 /**

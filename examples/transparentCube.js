@@ -1,5 +1,5 @@
 import {GlobalStorage} from "../defaultSettings.js";
-import {makePoint} from "../library/point";
+import {makePoint} from "../library/point/makePoint.js";
 
 export function drawTransparentCube(time, ctx) {
   const size = 200;

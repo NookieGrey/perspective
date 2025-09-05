@@ -2,9 +2,8 @@ import {GlobalStorage} from './defaultSettings.js';
 import {wireSettingsFormTo} from "./form.js";
 import {addPolyfillCanvasClear} from "./addPolyfillCanvasClear.js";
 import {drawFloor} from "./examples/floor.js";
-import {makePoint} from "./library/point";
+import {makePoint} from "./library/point/makePoint.js";
 import {drawTunnel} from "./examples/tunnel.js";
-import {drawTransparentCube} from "./examples/transparentCube.js";
 import {drawCube} from "./examples/cube.js";
 
 addPolyfillCanvasClear();

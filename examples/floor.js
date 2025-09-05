@@ -1,5 +1,5 @@
 import {GlobalStorage} from "../defaultSettings.js";
-import {makePoint} from "../library/point";
+import {makePoint} from "../library/point/makePoint.js";
 
 export function drawFloor(time, ctx) {
   if (!GlobalStorage.examples.floor.showFloor) return;

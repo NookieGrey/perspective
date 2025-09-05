@@ -7,101 +7,138 @@
     <script type="module" src="index.js"></script>
 </head>
 <body>
-<div class="left-block">
-    <form id="examples">
+<div class="wrapper">
+    <canvas id="canvas"></canvas>
+    <div class="right-block">
+        <h3>Global Settings</h3>
+        <form id="settings">
+            <div>
+                <label for="pd">
+                    vision angle
+                    <input type="number" id="pd" name="pd" step="10" min="10">
+                </label>
+            </div>
+            <div>
+                <label for="frame-count">
+                    frames count
+                    <input type="number" id="frame-count" name="frame-count" step="10" min="10">
+                </label>
+            </div>
+            <div>
+                <label for="distance-x">
+                    length
+                    <input type="number" id="distance-x" name="distance-x" step="1" min="1">
+                </label>
+            </div>
+            <div>
+                <label for="distance-y">
+                    width
+                    <input type="number" id="distance-y" name="distance-y" step="1" min="0">
+                </label>
+            </div>
+            <div>
+                <label for="scale">
+                    scale
+                    <input type="number" id="scale" name="scale" step="1" min="1">
+                </label>
+            </div>
+            <div>
+                <label for="horizon-x">
+                    horizon x
+                    <input type="number" id="horizon-x" name="horizon-x" step="10">
+                </label>
+            </div>
+            <div>
+                <label for="horizon-y">
+                    horizon y
+                    <input type="number" id="horizon-y" name="horizon-y" step="10">
+                </label>
+            </div>
+        </form>
+        <form id="examples">
+            <h3>Floor</h3>
+            <div>
+                <label for="show-floor">
+                    Floor Visible
+                    <input type="checkbox" id="show-floor" name="show-floor">
+                </label>
+            </div>
+            <div>
+                <label for="floor-height">
+                    Floor Height
+                    <input type="number" id="floor-height" name="floor-height" step="10">
+                </label>
+            </div>
+            <div>
+                <label for="floor-x-speed">
+                    Floor X Speed
+                    <input type="number" id="floor-x-speed" name="floor-x-speed" step="1">
+                </label>
+            </div>
+            <div>
+                <label for="floor-y-speed">
+                    Floor Y Speed
+                    <input type="number" id="floor-y-speed" name="floor-y-speed" step="1">
+                </label>
+            </div>
+            <h3>Tunnel</h3>
+            <div>
+                <label for="show-tunnel">
+                    Tunnel Visible
+                    <input type="checkbox" id="show-tunnel" name="show-tunnel">
+                </label>
+            </div>
+            <div>
+                <label for="tunnel-height">
+                    Tunnel Offset Z
+                    <input type="number" id="tunnel-height" name="tunnel-height" step="10">
+                </label>
+            </div>
+            <div>
+                <label for="tunnel-x-speed">
+                    Tunnel X Speed
+                    <input type="number" id="tunnel-x-speed" name="tunnel-x-speed" step="1">
+                </label>
+            </div>
+            <div>
+                <label for="tunnel-radius">
+                    Tunnel Radius
+                    <input type="number" id="tunnel-radius" name="tunnel-radius" step="10">
+                </label>
+            </div>
+            <div>
+                <label for="tunnel-vertical-endpoint-offset">
+                    Tunnel Deep
+                    <input type="number" id="tunnel-vertical-endpoint-offset" name="tunnel-vertical-endpoint-offset"
+                           step="10">
+                </label>
+            </div>
+            <h3>Cube</h3>
+            <div>
+                <label for="show-cube">
+                    Cube Visible
+                    <input type="checkbox" id="show-cube" name="show-cube">
+                </label>
+            </div>
+            <div>
+                <label for="cube-size">
+                    Cube Size
+                    <input type="number" id="cube-size" name="cube-size" step="10" min="10">
+                </label>
+            </div>
+        </form>
+        <h3>User Code</h3>
+        <form id="custom-code">
+            <div>
+                <label for="custom-js">
+                    Custom JS
+                    <textarea id="custom-js" name="custom-js" rows="10" cols="35"></textarea>
+                </label>
+            </div>
+        </form>
         <div>
-            <label for="show-floor">
-                Floor Visible
-                <input type="checkbox" id="show-floor" name="show-floor">
-            </label>
+            *canvas clickable
         </div>
-        <div>
-            <label for="floor-height">
-                Floor Height
-                <input type="number" id="floor-height" name="floor-height" step="10">
-            </label>
-        </div>
-        <div>
-            <label for="floor-x-speed">
-                Floor X Speed
-                <input type="number" id="floor-x-speed" name="floor-x-speed" step="1">
-            </label>
-        </div>
-        <div>
-            <label for="floor-y-speed">
-                Floor Y Speed
-                <input type="number" id="floor-y-speed" name="floor-y-speed" step="1">
-            </label>
-        </div>
-        <div>
-            <label for="show-cube">
-                Cube Visible
-                <input type="checkbox" id="show-cube" name="show-cube">
-            </label>
-        </div>
-        <div>
-            <label for="cube-size">
-                Cube Size
-                <input type="number" id="cube-size" name="cube-size" step="10" min="10">
-            </label>
-        </div>
-    </form>
-</div>
-<div class="right-block">
-    <form id="settings">
-        <div>
-            <label for="pd">
-                vision angle
-                <input type="number" id="pd" name="pd" step="10" min="10">
-            </label>
-        </div>
-        <div>
-            <label for="frame-count">
-                frames count
-                <input type="number" id="frame-count" name="frame-count" step="10" min="10">
-            </label>
-        </div>
-        <div>
-            <label for="distance-x">
-                length
-                <input type="number" id="distance-x" name="distance-x" step="1" min="1">
-            </label>
-        </div>
-        <div>
-            <label for="distance-y">
-                width
-                <input type="number" id="distance-y" name="distance-y" step="1" min="0">
-            </label>
-        </div>
-        <div>
-            <label for="scale">
-                scale
-                <input type="number" id="scale" name="scale" step="1" min="1">
-            </label>
-        </div>
-        <div>
-            <label for="horizon-x">
-                horizon x
-                <input type="number" id="horizon-x" name="horizon-x" step="10">
-            </label>
-        </div>
-        <div>
-            <label for="horizon-y">
-                horizon y
-                <input type="number" id="horizon-y" name="horizon-y" step="10">
-            </label>
-        </div>
-    </form>
-    <form id="custom-code">
-        <div>
-            <label for="custom-js">
-                Custom JS
-                <textarea id="custom-js" name="custom-js" rows="10" cols="50"></textarea>
-            </label>
-        </div>
-    </form>
-    <div>
-        *canvas clickable
     </div>
 </div>
 </body>

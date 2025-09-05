@@ -4,10 +4,11 @@ import {addPolyfillCanvasClear} from "./addPolyfillCanvasClear.js";
 import {drawFloor} from "./examples/floor.js";
 import {drawCube} from "./examples/cube.js";
 import {Point} from "./library/Point.js";
+import {drawTunnel} from "./examples/tunnel.js";
 
 addPolyfillCanvasClear();
 
-const canvas = document.createElement('canvas');
+const canvas = document.getElementById('canvas');
 canvas.width = GlobalStorage.canvasWidth;
 canvas.height = GlobalStorage.canvasHeight;
 
@@ -33,6 +34,8 @@ function draw(time, ctx) {
   ctx.clear();
 
   drawFloor(time, ctx);
+
+  drawTunnel(time, ctx);
 
   drawCube(time, ctx);
 

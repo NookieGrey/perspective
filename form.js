@@ -1,15 +1,9 @@
 import {GlobalStorage} from "./defaultSettings.js";
 
 export function wireSettingsFormTo(canvas) {
-  var form;
-
   document.addEventListener("DOMContentLoaded", function () {
-    var body = document.body;
-
-    body.appendChild(canvas);
-
     {
-      form = document.getElementById('settings');
+      const form = document.getElementById('settings');
       form.addEventListener('submit', function (event) {
         event.preventDefault();
       });
@@ -85,7 +79,7 @@ export function wireSettingsFormTo(canvas) {
     }
 
     {
-      form = document.getElementById('examples');
+      const form = document.getElementById('examples');
       form.addEventListener('submit', function (event) {
         event.preventDefault();
       });
@@ -114,6 +108,36 @@ export function wireSettingsFormTo(canvas) {
         GlobalStorage.examples.floor.speedY = +this.value;
       });
 
+      const $showTunnel = form['show-tunnel'];
+      $showTunnel.checked = GlobalStorage.examples.tunnel.showTunnel;
+      $showTunnel.addEventListener('change', function () {
+        GlobalStorage.examples.tunnel.showTunnel = this.checked;
+      });
+
+      const $tunnelHeight = form['tunnel-height'];
+      $tunnelHeight.value = GlobalStorage.examples.tunnel.height;
+      $tunnelHeight.addEventListener('change', function () {
+        GlobalStorage.examples.tunnel.height = +this.value;
+      });
+
+      const $tunnelXSpeed = form['tunnel-x-speed'];
+      $tunnelXSpeed.value = GlobalStorage.examples.tunnel.speedX;
+      $tunnelXSpeed.addEventListener('change', function () {
+        GlobalStorage.examples.tunnel.speedX = +this.value;
+      });
+
+      const $tunnelRadius = form['tunnel-radius'];
+      $tunnelRadius.value = GlobalStorage.examples.tunnel.radius;
+      $tunnelRadius.addEventListener('change', function () {
+        GlobalStorage.examples.tunnel.radius = +this.value;
+      });
+
+      const $tunnelVerticalEndpointOffset = form['tunnel-vertical-endpoint-offset'];
+      $tunnelVerticalEndpointOffset.value = GlobalStorage.examples.tunnel.verticalEndpointOffset;
+      $tunnelVerticalEndpointOffset.addEventListener('change', function () {
+        GlobalStorage.examples.tunnel.verticalEndpointOffset = +this.value;
+      });
+
       const $showCube = form['show-cube'];
       $showCube.checked = GlobalStorage.examples.cube.showCube;
       $showCube.addEventListener('change', function () {
@@ -128,29 +152,12 @@ export function wireSettingsFormTo(canvas) {
     }
     {
       const $form = document.getElementById('custom-code');
-      form.addEventListener('submit', function (event) {
+      $form.addEventListener('submit', function (event) {
         event.preventDefault();
       });
       const $customJsTextarea = $form['custom-js'];
 
-      const defaultCode = `// Example using Point: Draw a circle moving in a 3D circle
-const angle = time / 50;
-const radius = 200;
-
-// Center of the circle path in 3D space
-const centerX = 400;
-const centerY = 400;
-
-const x = centerX + Math.cos(angle) * radius;
-const y = centerY + Math.sin(angle) * radius;
-const z = 0;
-
-const p = new Point(x, y, z);
-
-ctx.fillStyle = 'cyan';
-ctx.beginPath();
-ctx.arc(p.X, p.Z, 5, 0, Math.PI * 2);
-ctx.fill();`;
+      const defaultCode = `// You have got ctx, time in the scope\n// also Point, GlobalStorage available in global scope`;
 
       $customJsTextarea.value = defaultCode;
 

@@ -15,23 +15,15 @@ body {
 
 body canvas {
     display: block;
-    margin: auto auto;
     background: rgb(0,128,128);
 }
 
-.left-block {
-    position: absolute;
-    left:0;
-    top: 0;
-    z-index: 1;
-    color: white;
+.wrapper {
+    display: flex;
+    justify-content: space-between;
 }
 
 .right-block {
-    position: absolute;
-    right:0;
-    top: 0;
-    z-index: 1;
-    color: white;
+    width: 300px;
     text-align: right;
 }

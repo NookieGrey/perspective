@@ -1,5 +1,5 @@
 import {GlobalStorage} from "../defaultSettings.js";
-import {Point} from "../library/Point.js";
+import {makePoint} from "../library/point";
 
 export function drawFloor(time, ctx) {
   if (!GlobalStorage.examples.floor.showFloor) return;
@@ -50,8 +50,8 @@ export function drawFloor(time, ctx) {
     ctx.strokeStyle = 'white';
 
     {
-      const A = new Point(leftEnd, 0, Z);
-      const B = new Point(rightEnd, 0, Z);
+      const A = makePoint(leftEnd, 0, Z);
+      const B = makePoint(rightEnd, 0, Z);
       ctx.moveTo(A.X, A.Z);
       ctx.lineTo(B.X, B.Z);
     }
@@ -59,8 +59,8 @@ export function drawFloor(time, ctx) {
     for (let i = 0; i <= count; i++) {
       const distance = getDistance(i);
 
-      const A = new Point(leftEnd, distance, Z);
-      const B = new Point(rightEnd, distance, Z);
+      const A = makePoint(leftEnd, distance, Z);
+      const B = makePoint(rightEnd, distance, Z);
       ctx.moveTo(A.X, A.Z);
       ctx.lineTo(B.X, B.Z);
     }
@@ -72,15 +72,15 @@ export function drawFloor(time, ctx) {
     ctx.strokeStyle = 'white';
 
     {
-      const A = new Point(leftEnd, 0, Z);
-      const B = new Point(leftEnd, GlobalStorage.mostDistanceX * GlobalStorage.canvasWidth, Z);
+      const A = makePoint(leftEnd, 0, Z);
+      const B = makePoint(leftEnd, GlobalStorage.mostDistanceX * GlobalStorage.canvasWidth, Z);
       ctx.moveTo(A.X, A.Z);
       ctx.lineTo(B.X, B.Z);
     }
 
     {
-      const A = new Point(rightEnd, 0, Z);
-      const B = new Point(rightEnd, GlobalStorage.mostDistanceX * GlobalStorage.canvasWidth, Z);
+      const A = makePoint(rightEnd, 0, Z);
+      const B = makePoint(rightEnd, GlobalStorage.mostDistanceX * GlobalStorage.canvasWidth, Z);
       ctx.moveTo(A.X, A.Z);
       ctx.lineTo(B.X, B.Z);
     }
@@ -88,8 +88,8 @@ export function drawFloor(time, ctx) {
     for (let c = leftEnd; c <= rightEnd - GlobalStorage.step; c += GlobalStorage.step) {
       const distance = getDistanceY(c / GlobalStorage.step);
 
-      const A = new Point(distance, 0, Z);
-      const B = new Point(distance, GlobalStorage.mostDistanceX * GlobalStorage.canvasWidth, Z);
+      const A = makePoint(distance, 0, Z);
+      const B = makePoint(distance, GlobalStorage.mostDistanceX * GlobalStorage.canvasWidth, Z);
       ctx.moveTo(A.X, A.Z);
       ctx.lineTo(B.X, B.Z);
     }

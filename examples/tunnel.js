@@ -1,4 +1,4 @@
-import {Point} from "../library/Point.js";
+import {makePoint} from "../library/point";
 import {GlobalStorage} from "../defaultSettings.js";
 
 /**
@@ -13,7 +13,7 @@ import {GlobalStorage} from "../defaultSettings.js";
  */
 function drawPerspectiveArc(ctx, centerX, centerY, centerZ, radius, startAngle, endAngle) {
   // Проецируем 3D-центр в 2D-координаты экрана
-  const centerScreenPoint = new Point(centerX, centerY, centerZ);
+  const centerScreenPoint = makePoint(centerX, centerY, centerZ);
 
   // Рассчитываем масштаб перспективы для данной глубины (centerY)
   const scale = GlobalStorage.pd / (GlobalStorage.pd + centerY);
@@ -58,7 +58,7 @@ export function drawTunnel(time, ctx) {
     return order + step;
   }
 
-  const canvasWidth = ctx.canvas.width;
+  const canvasWidth = GlobalStorage.canvasWidth;
   const centerX = canvasWidth / 2;
   const radius = GlobalStorage.examples.tunnel.radius;
 
@@ -140,12 +140,12 @@ export function drawTunnel(time, ctx) {
     const z_end = calculatedCenterZ + radius * Math.sin(endAngle);
 
     // Создаем точки в 3D пространстве для левой линии
-    const A_start = new Point(x_start, lineStartY, z_start);
-    const B_start = new Point(x_start, lineEndY, z_start);
+    const A_start = makePoint(x_start, lineStartY, z_start);
+    const B_start = makePoint(x_start, lineEndY, z_start);
 
     // Создаем точки в 3D пространстве для правой линии
-    const A_end = new Point(x_end, lineStartY, z_end);
-    const B_end = new Point(x_end, lineEndY, z_end);
+    const A_end = makePoint(x_end, lineStartY, z_end);
+    const B_end = makePoint(x_end, lineEndY, z_end);
 
     ctx.beginPath();
     // Рисуем левую продольную линию

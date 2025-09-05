@@ -64,7 +64,6 @@ export function wireSettingsFormTo(canvas) {
       $horizonY.value = GlobalStorage.horizonY;
       $horizonY.addEventListener('change', function () {
         GlobalStorage.horizonY = +this.value;
-        GlobalStorage.DD_ = GlobalStorage.canvasHeight - GlobalStorage.horizonY;
       });
 
       canvas.addEventListener('click', function (event) {
@@ -73,8 +72,6 @@ export function wireSettingsFormTo(canvas) {
 
         $horizonX.value = GlobalStorage.horizonX;
         $horizonY.value = GlobalStorage.horizonY;
-
-        GlobalStorage.DD_ = GlobalStorage.canvasHeight - GlobalStorage.horizonY;
       });
     }
 

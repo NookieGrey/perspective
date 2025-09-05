@@ -28,7 +28,7 @@ export const GlobalStorage = {
       verticalEndpointOffset: -450
     },
     cube: {
-      showCube: false,
+      showCube: true,
       size: 300,
     }
   }
@@ -46,6 +46,4 @@ const halfTunnelWidth = tunnelWidthOnScreen / 2;
 // Используем теорему Пифагора: radius^2 = halfTunnelWidth^2 + verticalEndpointOffset^2
 GlobalStorage.examples.tunnel.verticalEndpointOffset = -Math.round(Math.sqrt(GlobalStorage.examples.tunnel.radius * GlobalStorage.examples.tunnel.radius - halfTunnelWidth * halfTunnelWidth));
 
-
-GlobalStorage.DD_ = GlobalStorage.canvasHeight - GlobalStorage.horizonY;
 GlobalStorage.step = GlobalStorage.canvasWidth / GlobalStorage.scale;

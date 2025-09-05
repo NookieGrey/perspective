@@ -1,14 +1,25 @@
 import {GlobalStorage} from "../defaultSettings.js";
-import {Point} from "../library/Point.js";
+import {makePoint} from "../library/point";
 
 export function drawTransparentCube(time, ctx) {
-  const x = 1000;
-  const y = 600;
-  const z = 400;
   const size = 200;
-  const angle = (time / GlobalStorage.frameCount * 60) % 180;
+  const x = GlobalStorage.canvasWidth / 2 - size / 2;
+  const z = 200;
+
+  const y = calculateY(time)
+
+  // todo added 0.5, because need to fix 45 deg
+  const angle = (time / GlobalStorage.frameCount * 60) % 360 + 0.5;
 
   drawCubeRectAngle(x, y, z, size, angle);
+
+  function calculateY(time) {
+    const maxDistance = GlobalStorage.canvasWidth * GlobalStorage.mostDistanceX;
+
+    const framesCount = GlobalStorage.frameCount / GlobalStorage.examples.floor.speedX;
+
+    return maxDistance * (1 - (time % framesCount) / framesCount);
+  }
 
   function drawCubeRectAngle(x, y, z, size, angle) {
     // sin(a/2) = hipoDiff / (1√2*size)
@@ -26,15 +37,15 @@ export function drawTransparentCube(time, ctx) {
     const centerY = y + halfSize;
     const centerZ = z + halfSize;
 
-    const leftDown = new Point(centerX - halfSize - yDiff, centerY - halfSize + xDiff, centerZ - halfSize);
-    const leftTop = new Point(centerX - halfSize + xDiff, centerY + halfSize + yDiff, centerZ - halfSize);
-    const rightTop = new Point(centerX + halfSize + yDiff, centerY + halfSize - xDiff, centerZ - halfSize);
-    const rightDown = new Point(centerX + halfSize - xDiff, centerY - halfSize - yDiff, centerZ - halfSize);
+    const leftDown = makePoint(centerX - halfSize - yDiff, centerY - halfSize + xDiff, centerZ - halfSize);
+    const leftTop = makePoint(centerX - halfSize + xDiff, centerY + halfSize + yDiff, centerZ - halfSize);
+    const rightTop = makePoint(centerX + halfSize + yDiff, centerY + halfSize - xDiff, centerZ - halfSize);
+    const rightDown = makePoint(centerX + halfSize - xDiff, centerY - halfSize - yDiff, centerZ - halfSize);
 
-    const leftDownZ = new Point(centerX - halfSize - yDiff, centerY - halfSize + xDiff, centerZ + halfSize);
-    const leftTopZ = new Point(centerX - halfSize + xDiff, centerY + halfSize + yDiff, centerZ + halfSize);
-    const rightTopZ = new Point(centerX + halfSize + yDiff, centerY + halfSize - xDiff, centerZ + halfSize);
-    const rightDownZ = new Point(centerX + halfSize - xDiff, centerY - halfSize - yDiff, centerZ + halfSize);
+    const leftDownZ = makePoint(centerX - halfSize - yDiff, centerY - halfSize + xDiff, centerZ + halfSize);
+    const leftTopZ = makePoint(centerX - halfSize + xDiff, centerY + halfSize + yDiff, centerZ + halfSize);
+    const rightTopZ = makePoint(centerX + halfSize + yDiff, centerY + halfSize - xDiff, centerZ + halfSize);
+    const rightDownZ = makePoint(centerX + halfSize - xDiff, centerY - halfSize - yDiff, centerZ + halfSize);
 
     ctx.beginPath();
     ctx.strokeStyle = 'white';

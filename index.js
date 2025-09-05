@@ -2,9 +2,10 @@ import {GlobalStorage} from './defaultSettings.js';
 import {wireSettingsFormTo} from "./form.js";
 import {addPolyfillCanvasClear} from "./addPolyfillCanvasClear.js";
 import {drawFloor} from "./examples/floor.js";
-import {drawCube} from "./examples/cube.js";
-import {Point} from "./library/Point.js";
+import {makePoint} from "./library/point";
 import {drawTunnel} from "./examples/tunnel.js";
+import {drawTransparentCube} from "./examples/transparentCube.js";
+import {drawCube} from "./examples/cube.js";
 
 addPolyfillCanvasClear();
 
@@ -15,7 +16,7 @@ canvas.height = GlobalStorage.canvasHeight;
 const ctx = canvas.getContext("2d");
 
 wireSettingsFormTo(canvas);
-window.Point = Point;
+window.Point = makePoint;
 
 let stop = false;
 let time = 0;

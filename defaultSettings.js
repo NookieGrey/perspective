@@ -9,7 +9,6 @@ export const GlobalStorage = {
   scale: 5,
   horizonX: Math.round(availableWidth / 2 * 0.7),
   horizonY: Math.round(window.innerHeight / 2 * 0.8),
-  DD_: 300,
   step: 80,
   frameCount: 300,
   customDraw: null,
